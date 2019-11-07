@@ -10,10 +10,14 @@ import javax.faces.context.FacesContext;
 
 import com.dao.ClimaDAO;
 import com.model.Sensor;
+import com.services.RESTEasyClientGet;
+import org.json.JSONObject;
 
 @ManagedBean (name = "climaBean")
 @RequestScoped
 public class ClimaBean {
+	
+	private String select;
 	
 	public String nuevo() {
 		Sensor c= new Sensor();
@@ -83,13 +87,30 @@ public class ClimaBean {
 		clima.editar(sensor);
 		return "/faces/index.xhtml";
 	}
-//
-//	// eliminar un cliente
-//	public String eliminar(Long id) {
-//		ClienteDAO clienteDAO = new ClienteDAO();
-//		clienteDAO.eliminar(id);
-//		System.out.println("Cliente eliminado..");
-//		return "/faces/index.xhtml";
-//	}
+	
+	public void OpenWeather() {
+		
+		Sensor api = new Sensor();
+		ClimaDAO clima = new ClimaDAO();
+		RESTEasyClientGet rest = new RESTEasyClientGet();
+		
+		JSONObject json = rest.getWeather(this.select + ",CO");
+		
+		//System.out.print(this.select);
+		api.setHumidity(json.get("humidity").toString());
+		api.setTemperature(json.get("temp").toString());
+		api.setCity(this.select);
+		
+		clima.guardar(api);
+		
+	}
+
+	public String getSelect() {
+		return select;
+	}
+
+	public void setSelect(String select) {
+		this.select = select;
+	}
 
 }

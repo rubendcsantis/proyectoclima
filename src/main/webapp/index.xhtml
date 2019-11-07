@@ -13,7 +13,22 @@
 		<h:outputText value="Lista de ciudades"></h:outputText>
 	</h2>
 	<h:form>
-		<h:commandButton action="#{climaBean.nuevo()}" value="Nueva Ciudad"></h:commandButton>
+
+		<!-- >h:commandButton action="#{climaBean.nuevo()}" value="Nueva Ciudad"></h:commandButton-->
+		<h:selectOneMenu id="select" value="#{climaBean.select}" style="width:300px">
+			<f:selectItem itemValue="Bogota" itemLabel="Bogota" />
+			<f:selectItem itemValue="Cali" itemLabel="Cali" />
+			<f:selectItem itemValue="Bucaramanga" itemLabel="Bucaramanga" />
+			<f:selectItem itemValue="San Alonso" itemLabel="San Alonso" />
+			<f:selectItem itemValue="Departamento del Valle del Cauca"
+				itemLabel="Departamento del Valle del Cauca" />
+			<f:selectItem itemValue="Departamento de Antioquia"
+				itemLabel="Departamento de Antioquia" />
+			<f:selectItem itemValue="Yumbo" itemLabel="Yumbo" />
+		</h:selectOneMenu>
+		
+		<h:commandButton action="#{climaBean.OpenWeather()}"
+			value="OpenWeather"></h:commandButton>
 		<h:dataTable value="#{climaBean.getWeather()}" var="data" border="1">
 			<h:column>
 				<f:facet name="header">Ciudad</f:facet>
