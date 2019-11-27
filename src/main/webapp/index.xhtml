@@ -16,7 +16,7 @@
 	<h:form>
 
 		<!-- >h:commandButton action="#{climaBean.newRecord()}" value="Nueva Ciudad"></h:commandButton-->
-		<h:selectOneMenu id="select" value="#{climaBean.select}"
+		<p:selectOneMenu id="select" value="#{climaBean.select}"
 			style="width:300px">
 			<f:selectItem itemValue="Bogota" itemLabel="Bogota" />
 			<f:selectItem itemValue="Cali" itemLabel="Cali" />
@@ -33,11 +33,12 @@
 			<f:selectItem itemValue="Girardot" itemLabel="Girardot" />
 			<f:selectItem itemValue="Manizales" itemLabel="Manizales" />
 			<f:selectItem itemValue="Envigado" itemLabel="Envigado" />
-		</h:selectOneMenu>
+		</p:selectOneMenu>
 
-		<h:commandButton action="#{climaBean.OpenWeather()}"
-			value="OpenWeather" style="margin-right:20px;"
-			styleClass="ui-priority-primary"></h:commandButton>
+		<p:commandButton value="OpenWeatherMap" id="nonAjax"
+			action="#{climaBean.OpenWeather()}"
+			style="margin-right:20px;margin-left: 10px;margin-bottom: 10px;"
+			ajax="false" />
 
 		<p:dataTable value="#{climaBean.getWeather()}" var="data" border="1"
 			paginator="true" rows="10">
@@ -56,8 +57,8 @@
 
 			<p:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandButton action="#{climaBean.editRecord(data.id)}"
-					value="Editar"></h:commandButton>
+				<p:commandButton action="#{climaBean.editRecord(data.id)}"
+					value="Editar" ajax="false"></p:commandButton>
 			</p:column>
 			<!-- p:column>
 				<f:facet name="header">Eliminar</f:facet>
