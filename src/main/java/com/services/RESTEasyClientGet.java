@@ -9,36 +9,34 @@ import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.json.JSONObject;
 
-public class RESTEasyClientGet {	
+public class RESTEasyClientGet {
 
 	public JSONObject getWeather(String city) {
-		
+
 		String output = new String();
-		JSONObject replay = new JSONObject();
-		
+		JSONObject reply = new JSONObject();
+
 		try {
 
-			ClientRequest request = new ClientRequest(
-					"https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=a65955973ba33fce0e4fd6ad13a49543");
+			ClientRequest request = new ClientRequest("https://api.openweathermap.org/data/2.5/weather?q=" + city
+					+ "&appid=a65955973ba33fce0e4fd6ad13a49543&units=metric");
 			request.accept("application/json");
 			ClientResponse<String> response = request.get(String.class);
 
 			if (response.getStatus() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ response.getStatus());
+				throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
 			}
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					new ByteArrayInputStream(response.getEntity().getBytes())));
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(new ByteArrayInputStream(response.getEntity().getBytes())));
 
 			System.out.println("Output from Server .... \n");
-			
+
 			output = br.readLine();
-			
+
 			JSONObject json = new JSONObject(output);
-			
-			replay = json.getJSONObject("main");
-			
+
+			reply = json.getJSONObject("main");
 
 		} catch (ClientProtocolException e) {
 
@@ -53,8 +51,8 @@ public class RESTEasyClientGet {
 			e.printStackTrace();
 
 		}
-		
-		return replay;
+
+		return reply;
 	}
 
 }

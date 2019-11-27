@@ -14,18 +14,18 @@
 			<f:facet name="header">
 				<h:outputText value="Nuevo"></h:outputText>
 			</f:facet>
-				
+
 			<h:outputText value="Ciudad"></h:outputText>
 			<h:inputText value="#{data.city}"></h:inputText>
-			
+
 			<h:outputText value="Humedad"></h:outputText>
 			<h:inputText value="#{data.humidity}"></h:inputText>
-			
+
 			<h:outputText value="Temperatura"></h:outputText>
 			<h:inputText value="#{data.temperature}"></h:inputText>
 
 			<f:facet name="footer">
-				<h:commandButton action="#{climaBean.guardar(data)}"
+				<h:commandButton action="#{climaBean.saveRecord(data)}"
 					value="Guardar"></h:commandButton>
 			</f:facet>
 

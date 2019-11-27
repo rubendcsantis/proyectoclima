@@ -12,7 +12,7 @@
 
 	<name>CLIMA Maven Webapp</name>
 	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>http://www.clima.com</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -60,6 +60,16 @@
 			<groupId>org.codeartisans</groupId>
 			<artifactId>org.json</artifactId>
 			<version>20161124</version>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.1</version>
 		</dependency>
 	</dependencies>
 	<repositories>

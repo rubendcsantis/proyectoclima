@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta charset="utf-8" name="viewport"
 		content="width=device-width, initial-scale=1"
@@ -14,8 +15,9 @@
 	</h2>
 	<h:form>
 
-		<!-- >h:commandButton action="#{climaBean.nuevo()}" value="Nueva Ciudad"></h:commandButton-->
-		<h:selectOneMenu id="select" value="#{climaBean.select}" style="width:300px">
+		<!-- >h:commandButton action="#{climaBean.newRecord()}" value="Nueva Ciudad"></h:commandButton-->
+		<h:selectOneMenu id="select" value="#{climaBean.select}"
+			style="width:300px">
 			<f:selectItem itemValue="Bogota" itemLabel="Bogota" />
 			<f:selectItem itemValue="Cali" itemLabel="Cali" />
 			<f:selectItem itemValue="Bucaramanga" itemLabel="Bucaramanga" />
@@ -25,35 +27,44 @@
 			<f:selectItem itemValue="Departamento de Antioquia"
 				itemLabel="Departamento de Antioquia" />
 			<f:selectItem itemValue="Yumbo" itemLabel="Yumbo" />
+			<f:selectItem itemValue="Buga" itemLabel="Buga" />
+			<f:selectItem itemValue="Itagui" itemLabel="Itagui" />
+			<f:selectItem itemValue="Berlín" itemLabel="Berlín" />
+			<f:selectItem itemValue="Girardot" itemLabel="Girardot" />
+			<f:selectItem itemValue="Manizales" itemLabel="Manizales" />
+			<f:selectItem itemValue="Envigado" itemLabel="Envigado" />
 		</h:selectOneMenu>
-		
+
 		<h:commandButton action="#{climaBean.OpenWeather()}"
-			value="OpenWeather"></h:commandButton>
-		<h:dataTable value="#{climaBean.getWeather()}" var="data" border="1">
-			<h:column>
+			value="OpenWeather" style="margin-right:20px;"
+			styleClass="ui-priority-primary"></h:commandButton>
+
+		<p:dataTable value="#{climaBean.getWeather()}" var="data" border="1"
+			paginator="true" rows="10">
+			<p:column>
 				<f:facet name="header">Ciudad</f:facet>
 				<h:outputText value="#{data.city}"></h:outputText>
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Humedad</f:facet>
 				<h:outputText value="#{data.humidity}"></h:outputText>
-			</h:column>
-			<h:column>
+			</p:column>
+			<p:column>
 				<f:facet name="header">Temperatura</f:facet>
 				<h:outputText value="#{data.temperature}"></h:outputText>
-			</h:column>
+			</p:column>
 
-			<h:column>
+			<p:column>
 				<f:facet name="header">Editar</f:facet>
-				<h:commandButton action="#{climaBean.editar(data.id)}"
+				<h:commandButton action="#{climaBean.editRecord(data.id)}"
 					value="Editar"></h:commandButton>
-			</h:column>
-			<!-- >h:column>
+			</p:column>
+			<!-- p:column>
 				<f:facet name="header">Eliminar</f:facet>
 				<h:commandButton action="#{climaBean.eliminar(data.id)}"
 					value="Eliminar"></h:commandButton>
-			</h:column -->
-		</h:dataTable>
+			</p:column-->
+		</p:dataTable>
 	</h:form>
 </h:body>
 </html>
