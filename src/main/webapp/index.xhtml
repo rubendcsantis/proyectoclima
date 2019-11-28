@@ -47,7 +47,7 @@
 			ajax="false" />
 		<h:commandButton value="Exportar PDF" icon="pi pi-star"
 			style="margin-right:20px;">
-			<p:dataExporter type="pdf" target="tbl" fileName="Reporte de Clima." />
+			<p:dataExporter type="pdf" target="tbl" fileName="Reporte de Clima." pageOnly="true"/>
 		</h:commandButton>
 		<p:dataTable id="tbl" value="#{climaBean.getWeather()}" var="data"
 			border="1" paginator="true" rows="10" widgetVar="carsTable1"
