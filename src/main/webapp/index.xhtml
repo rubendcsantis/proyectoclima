@@ -7,13 +7,20 @@
 	<meta charset="utf-8" name="viewport"
 		content="width=device-width, initial-scale=1"
 		http-equiv="X-UA-Conpatible" />
-	<title>Plantilla Básica JSF</title>
+	<title>Clima API</title>
 </h:head>
 <h:body>
-	<h2>
-		<h:outputText value="Lista de ciudades"></h:outputText>
-	</h2>
+
+	<div class="ui-g">
+		<div class="ui-g-12 ui-md-3">
+			<p:staticMessage severity="info" summary="INFO!"
+				detail="Proyecto Arquitectura de Software!" style="width:100%" />
+		</div>
+	</div>
+
 	<h:form>
+
+		<p:growl id="growl" showDetail="true" sticky="true" />
 
 		<!-- >h:commandButton action="#{climaBean.newRecord()}" value="Nueva Ciudad"></h:commandButton-->
 		<p:selectOneMenu id="select" value="#{climaBean.select}"
@@ -34,37 +41,55 @@
 			<f:selectItem itemValue="Manizales" itemLabel="Manizales" />
 			<f:selectItem itemValue="Envigado" itemLabel="Envigado" />
 		</p:selectOneMenu>
-
 		<p:commandButton value="OpenWeatherMap" id="nonAjax"
 			action="#{climaBean.OpenWeather()}"
 			style="margin-right:20px;margin-left: 10px;margin-bottom: 10px;"
 			ajax="false" />
-
-		<p:dataTable value="#{climaBean.getWeather()}" var="data" border="1"
-			paginator="true" rows="10">
-			<p:column>
-				<f:facet name="header">Ciudad</f:facet>
+		<h:commandButton value="Exportar PDF" icon="pi pi-star"
+			style="margin-right:20px;">
+			<p:dataExporter type="pdf" target="tbl" fileName="Reporte de Clima." />
+		</h:commandButton>
+		<p:dataTable id="tbl" value="#{climaBean.getWeather()}" var="data"
+			border="1" paginator="true" rows="10" widgetVar="carsTable1"
+			emptyMessage="No se han encontrado registros"
+			filteredValue="#{climaBean.filteredWeather}">filteredValue="#{mySubmissionsBean.filteredSubmissions}"
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Buscar en todos los campos:" />
+					<p:inputText id="globalFilter" onkeyup="PF('carsTable1').filter()"
+						style="width:150px" placeholder="Palabra clave" />
+				</p:outputPanel>
+			</f:facet>
+			<p:column filterBy="#{data.city}" headerText="Ciudad"
+				footerText="contains" filterMatchMode="contains"
+				sortBy="#{data.city}">
 				<h:outputText value="#{data.city}"></h:outputText>
 			</p:column>
-			<p:column>
-				<f:facet name="header">Humedad</f:facet>
+			<p:column filterBy="#{data.humidity}" headerText="Humedad"
+				footerText="contains" filterMatchMode="contains"
+				sortBy="#{data.humidity}">
 				<h:outputText value="#{data.humidity}"></h:outputText>
 			</p:column>
-			<p:column>
-				<f:facet name="header">Temperatura</f:facet>
+			<p:column filterBy="#{data.temperature}" headerText="Temperatura"
+				footerText="contains" filterMatchMode="contains"
+				sortBy="#{data.temperature}">
 				<h:outputText value="#{data.temperature}"></h:outputText>
 			</p:column>
-
-			<p:column>
+			<p:column filterBy="#{data.date}" headerText="Fecha"
+				footerText="contains" filterMatchMode="contains"
+				sortBy="#{data.date}">
+				<h:outputText value="#{data.date}"></h:outputText>
+			</p:column>
+			<p:column filterBy="#{data.time}" headerText="Hora"
+				footerText="contains" filterMatchMode="contains"
+				sortBy="#{data.time}">
+				<h:outputText value="#{data.time}"></h:outputText>
+			</p:column>
+			<p:column exportable="false">
 				<f:facet name="header">Editar</f:facet>
 				<p:commandButton action="#{climaBean.editRecord(data.id)}"
 					value="Editar" ajax="false"></p:commandButton>
 			</p:column>
-			<!-- p:column>
-				<f:facet name="header">Eliminar</f:facet>
-				<h:commandButton action="#{climaBean.eliminar(data.id)}"
-					value="Eliminar"></h:commandButton>
-			</p:column-->
 		</p:dataTable>
 	</h:form>
 </h:body>

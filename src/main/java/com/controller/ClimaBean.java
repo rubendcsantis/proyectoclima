@@ -1,7 +1,9 @@
 package com.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -15,6 +17,8 @@ import org.json.JSONObject;
 public class ClimaBean {
 
 	private String select;
+	private List<Sensor> filteredWeather;
+	private Date currentDate = new Date();
 
 	/*
 	 * Redirecciona a la vista new.xhtml para crear un registro manualmente.
@@ -30,10 +34,8 @@ public class ClimaBean {
 	 * Guarda la información del formulario para el registro manual.
 	 */
 	public String saveRecord(Sensor sensor) {
-		// guarda la fecha de registro
-		// Date fechaActual= new Date();
-		// cliente.setFregistro(new java.sql.Date(fechaActual.getTime()));
-
+		sensor.setDate(new java.sql.Date(currentDate.getTime()));
+		sensor.setTime(new java.sql.Time(currentDate.getTime()));
 		ClimaDAO clima = new ClimaDAO();
 		clima.save(sensor);
 		return "/faces/index.xhtml";
@@ -64,10 +66,8 @@ public class ClimaBean {
 	 * Actualiza la información del formulario para el registro manual.
 	 */
 	public String updateRecord(Sensor sensor) {
-		// guarda la fecha de actualizacion
-		// Date fechaActual= new Date();
-		// cliente.setFactualizar(new java.sql.Date(fechaActual.getTime()));
-
+		sensor.setDate(new java.sql.Date(currentDate.getTime()));
+		sensor.setTime(new java.sql.Time(currentDate.getTime()));
 		ClimaDAO clima = new ClimaDAO();
 		clima.edit(sensor);
 		return "/faces/index.xhtml";
@@ -82,15 +82,25 @@ public class ClimaBean {
 		Sensor api = new Sensor();
 		ClimaDAO clima = new ClimaDAO();
 		RESTEasyClientGet rest = new RESTEasyClientGet();
-
 		JSONObject json = rest.getWeather(this.select + ",CO");
 
 		api.setHumidity(json.get("humidity").toString());
 		api.setTemperature(json.get("temp").toString());
 		api.setCity(this.select);
+		api.setDate(new java.sql.Date(currentDate.getTime()));
+		api.setTime(new java.sql.Time(currentDate.getTime()));
 
 		clima.save(api);
+		this.saveMessage();
 
+	}
+
+	/*
+	 * Función de mensaje global
+	 */
+	private void saveMessage() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Buen trabajo", "Carga exitosa."));
 	}
 
 	/*
@@ -105,6 +115,20 @@ public class ClimaBean {
 	 */
 	public void setSelect(String select) {
 		this.select = select;
+	}
+
+	/*
+	 * Obtiene los filtros seleccionados
+	 */
+	public List<Sensor> getFilteredWeather() {
+		return filteredWeather;
+	}
+
+	/*
+	 * Reserva los filtros seleccionados
+	 */
+	public void setFilteredWeather(List<Sensor> filteredWeather) {
+		this.filteredWeather = filteredWeather;
 	}
 
 }
