@@ -100,7 +100,7 @@ public class ClimaBean {
 	 */
 	private void saveMessage() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage("Buen trabajo", "Carga exitosa."));
+		context.addMessage(null, new FacesMessage("¡Felicidades!", "Todo listo..."));
 	}
 
 	/*
