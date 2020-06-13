@@ -11,11 +11,11 @@
 			<property name="javax.persistence.jdbc.driver"
 				value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://arquitectura.cdxccgzqffry.us-east-2.rds.amazonaws.com:5432/postgres" />
+				value="jdbc:postgresql://localhost:5432/ProjectArduino" />
 			<property name="javax.persistence.jdbc.user"
 				value="postgres" />
 			<property name="javax.persistence.jdbc.password"
-				value="Taller2019" />
+				value="root" />
 
 		</properties>
 

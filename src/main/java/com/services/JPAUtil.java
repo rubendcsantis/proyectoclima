@@ -12,7 +12,7 @@ public class JPAUtil {
 			factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		}
 		if (factory != null) {
-			// System.out.print("Conexión establecida...");
+			System.out.print("Conexión establecida...");
 			return factory;
 		}
 		return null;
